@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Gaurav!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Pacifico', cursive;
+      background: linear-gradient(to right, #fbc2eb, #a6c1ee);
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+
+    h1, p {
+      text-align: center;
+      color: white;
+      text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+      margin: 0;
+      z-index: 1;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 8vw;
+      margin-top: 5vh;
+      animation: popIn 1s ease-out forwards;
+    }
+
+    p {
+      font-size: 4vw;
+      margin-top: 2vh;
+      animation: fadeIn 2s ease-in forwards;
+    }
+
+    .imgHolder {
+      width: 40vw;
+      height: 40vw;
+      max-width: 200px;
+      max-height: 200px;
+      background-color: white;
+      border-radius: 50%;
+      background-image: url("gaurav.jpg");
+      background-size: cover;
+      background-position: center;
+      margin: 5vh auto 0;
+      animation: popIn 1s ease-out forwards;
+      z-index: 1;
+      position: relative;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+      pointer-events: none;
+    }
+
+    .imgHolder img {
+      height: 30%;
+      position: absolute;
+      top: -10px;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .bubble {
+      width: 20vw;
+      height: 20vw;
+      max-width: 120px;
+      max-height: 120px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.7), rgba(255,255,255,0.1));
+      border-radius: 50%;
+      box-shadow:
+        inset -10px -10px 14px rgba(255,255,255,0.8),
+        inset 4px 4px 8px rgba(0,0,0,0.1),
+        0 4px 20px rgba(0,0,0,0.2),
+        0 0 15px rgba(255,255,255,0.4);
+      position: absolute;
+      overflow: hidden;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      transform-style: preserve-3d;
+      backdrop-filter: blur(5px);
+      filter: blur(1px) brightness(0.8) contrast(1.2);
+      animation: rotateBubble 8s infinite linear;
+    }
+
+    @keyframes rotateBubble {
+      10% { transform: rotateY(0deg); }
+      40% { transform: rotateY(40deg); }
+      80% { transform: rotateY(-40deg); }
+      99% { transform: rotateY(0deg); }
+    }
+
+    .bubble img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.8);
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+      animation: fadeIn 0.4s ease-in-out;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 20px;
+      box-shadow: 0 0 40px rgba(255,255,255,0.3);
+    }
+
+    .lightbox.show {
+      display: flex;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    @media (min-width: 768px) {
+      h1 { font-size: 3rem; }
+      p { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <audio id="bgSound" preload="auto" src="bgSound.mp3" loop></audio>
+  <audio id="popSound" preload="auto" src="popSound.mp3"></audio>
+
+  <div class="imgHolder"><img src="emogi.png" alt="Emoji" /></div>
+  <h1>Happy Birthday Gaurav! 🎉</h1>
+  <p>Wishing you a day filled with love, laughter, and unforgettable memories! 
+    </p>
+
+
+  <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <img id="lightbox-img" src="" alt="Large view">
+  </div>
+
+  <script>
+    const imageArray = [
+      'g1.jpg', 'g2.jpg', 'g3.jpg', 'g4.jpg', 'g5.jpg', 'g6.jpg',
+      'g7.jpg', 'g8.jpg', 'g9.jpg', 'g10.jpg', 'g11.jpg', 'g12.jpg',
+      'g13.jpg', 'g14.jpg', 'g15.jpg', 'g16.jpg', 'g17.jpg', 'g18.jpg',
+      'g19.jpg', 'g20.jpg', 'g21.jpg', 'g22.jpg', 'g23.jpg', 'g24.jpg'
+    ];
+
+    function openLightbox(src) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox').classList.add('show');
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('show');
+    }
+
+    function playPopSound() {
+      const pop = document.getElementById('popSound');
+      pop.pause();
+      pop.currentTime = 0;
+      pop.play().catch(console.error);
+    }
+
+    function spawnSingleBubble(src) {
+      const bubble = document.createElement('div');
+      bubble.classList.add('bubble');
+      const img = document.createElement('img');
+      img.src = src;
+      img.alt = "Bubble Image";
+      bubble.appendChild(img);
+
+      const bubbleSize = Math.min(window.innerWidth * 0.2, 120);
+      let x = Math.random() * (window.innerWidth - bubbleSize);
+      let y = window.innerHeight - bubbleSize;
+      let dx = (Math.random() - 0.5) * 1.2;
+      let dy = -Math.random() * 0.6 - 0.2;
+
+      bubble.style.left = `${x}px`;
+      bubble.style.top = `${y}px`;
+
+      bubble.onclick = () => {
+        playPopSound();
+        openLightbox(src);
+        bubble.remove();
+      };
+
+      document.body.appendChild(bubble);
+
+      function animate() {
+        x += dx;
+        y += dy;
+        if (x <= 0 || x >= window.innerWidth - bubbleSize) dx *= -1;
+        if (y <= 0 || y >= window.innerHeight - bubbleSize) dy *= -1;
+        bubble.style.left = `${x}px`;
+        bubble.style.top = `${y}px`;
+        if (!bubble.removed) requestAnimationFrame(animate);
+      }
+
+      animate();
+    }
+
+    window.addEventListener('load', () => {
+      const bg = document.getElementById('bgSound');
+      bg.volume = 0.5;
+
+      const tryPlay = () => {
+        bg.play().catch(() => {
+          document.body.addEventListener('click', () => {
+            bg.play().catch(console.error);
+          }, { once: true });
+        });
+      };
+
+      tryPlay();
+
+      let currentIndex = 0;
+
+      function spawnNextBubble() {
+        if (currentIndex >= imageArray.length) return;
+        spawnSingleBubble(imageArray[currentIndex]);
+        currentIndex++;
+        setTimeout(spawnNextBubble, 2000);
+      }
+
+      spawnNextBubble();
+    });
+  </script>
+</body>
+</html>
